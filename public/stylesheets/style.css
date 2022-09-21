@@ -1,8 +1,37 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
 }
 
-a {
-  color: #00B7FF;
+.app-container {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  height: 60px;
+  border-bottom: solid 1px black;
+  padding: 5px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-nav nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 250px;
+}
+
+/* .cart-img {
+} */
+
+main {
+  flex-grow: 7;
+}
+
+.hidden {
+  display: none;
 }

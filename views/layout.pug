@@ -1,7 +1,32 @@
 doctype html
-html
+html(lang='en')
   head
     title= title
+    met(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='/stylesheets/style.css')
+
   body
-    block content
+    div(class='app-container')
+      header
+        block header
+          div(class='header-nav')
+            nav 
+              ul 
+                li 
+                  a(href="/instruments") Categories
+                li 
+                  a(href="/instruments") Instruments
+                li 
+                  a(href="/instruments") Accessories
+
+          div(class='header-cart')
+            img(src='images/shopping-cart.png' alt='shopping cart' class='cart-img' height='35px')
+
+      main 
+        div(class='sidebar')
+          block sidebar
+            div(class='hidden')
+
+        div(class='main')
+          block content 

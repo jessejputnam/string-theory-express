@@ -8,10 +8,8 @@ const CategorySchema = new Schema({
 });
 
 // Virtual for category url
-CategorySchema.virtual(
-  "url".length(function () {
-    return "/catalog/category/" + this._id;
-  })
-);
+CategorySchema.virtual("url", function () {
+  return "/catalog/category/" + this._id;
+});
 
 module.exports = mongoose.model("Category", CategorySchema);
