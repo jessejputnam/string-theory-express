@@ -1,5 +1,38 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  img(class='banner-img' src=bannerImgUrl alt='Banner image')
+  h1(class='index-title')= title
+
+  div(class='index-container')
+    div(class='nav-container')
+      div(class='nav-item')
+        img(class='nav-image' src='https://www.taylorguitars.com/sites/default/files/styles/feature_half/public/images/2021-10/TaylorGuitars-Academy-Series-New.jpeg?itok=SemCuZRY' height='250px' onclick="location.href='/catalog/instruments'")
+        div(class='nav-desc-container')
+          h3 Instruments
+          p Search through a catalog of the finest made stringed instruments from around the world. Our catalog includes famous brands, smaller companies, and even artisinal luthiers! We currently stock guitars, mandolins, and basses. Check back in the future for an expanded product line.
+      div(class='nav-item')
+        img(class='nav-image' src='https://guitargearfinder.com/wp-content/uploads/2016/09/guitar-accessories.jpg' height='250px' onclick="location.href='/catalog/accessories'")
+        div(class='nav-desc-container')
+          h3 Accessories
+          p(class='nav-desc') Our extensive collection of accessories will help you in whatever way you want to use your instruments. Search through our catalog of strings, tuners, pics, etc... 
+      div(class='nav-item')
+        img(class='nav-image' src='https://preview.redd.it/xl13rqb8qst21.jpg?auto=webp&s=34a9f9158e74170903df919c1c12cdce9ac724fc' height='250px' onclick="location.href='/catalog/categories'")
+        div(class='nav-desc-container')
+          h3 Categories
+          p Not sure what you want? Try looking through our categories!
+    div(class='mission-statement-container')
+      img(src="mission-img", alt="")
+      p(style='text-align: center') ✧ ✧ ✧
+      p We believe in getting music into the hands of whomever wants to give it a try. Instruments are one of the best ways to tap into the universal river of music that exists in the very air we breathe. Every one should have a conduit to accessing it, and if strings are your jam, come try out our shop! 
+    div(class='ad-container')
+      div(class='ads ads-left')
+        img(src="https://images.unsplash.com/photo-1617136781373-313c07a7f71c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80", alt="" height='310px')
+        div(class='small-imgs-container')
+          img(src="https://images.unsplash.com/photo-1593167751520-95a058b903c2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80", alt="" height="150px")
+          img(src="https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80", alt="" height="150px")
+      div(class='ads ads-right')
+        img(src="https://images.unsplash.com/photo-1609940539397-3fa778baf74a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80", alt="" height='310px')
+        div(class='small-imgs-container')
+          img(src="https://images.unsplash.com/photo-1598390024569-24ddee81aaa6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1476&q=80", alt="" height="150px")
+          img(src="https://images.unsplash.com/photo-1568480046613-6e3b671c66d2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80", alt="" height="150px")

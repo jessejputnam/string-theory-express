@@ -6,7 +6,7 @@ router.get("/", function (req, res, next) {
   res.render("index", {
     title: "String Theory",
     bannerImgUrl:
-      "https://images.unsplash.com/photo-1522008224169-e5992bed5fae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      "https://gp1.wac.edgecastcdn.net/802892/http_public_production/artists/images/3941706/original/crop:x0y0w1500h1000/hash:1467518471/1391548992_Bella_s_Bartok_proofs-0042.jpg?1467518471"
   });
 });
 

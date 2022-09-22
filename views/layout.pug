@@ -5,23 +5,39 @@ html(lang='en')
     met(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Cairo+Play:wght@300;400;700&family=Rock+Salt&display=swap" rel="stylesheet")
+    script(src="./javascripts/script.js" defer) 
 
   body
     div(class='app-container')
       header
         block header
+          div(class='logo-container')
+            img(src="images/guitar.svg", alt="Logo image" class='logo-img' height='50px')
+            div(class="logo-text-container" onclick="location.href='/'")
+              a(href="/") &nbsp; String
+              a(href="/") Theory 
           div(class='header-nav')
             nav 
               ul 
                 li 
-                  a(href="/instruments") Categories
+                  a(class='header-nav-links' href="/catalog/categories") Categories
                 li 
-                  a(href="/instruments") Instruments
+                  a(class='header-nav-links' href="/catalog/instruments") Instruments
                 li 
-                  a(href="/instruments") Accessories
+                  a(class='header-nav-links' href="/catalog/accessories") Accessories
+
+          div(class='burger-container')
+            div(class='top-burger burger')
+            div(class='mid-burger burger')
+            div(class='bottom-burger burger')
+          div(class='mobile-header-nav hidden')
+
 
           div(class='header-cart')
-            img(src='images/shopping-cart.png' alt='shopping cart' class='cart-img' height='35px')
+            img(src='images/shopping-cart.svg' alt='shopping cart' class='cart-img' height='55px')
 
       main 
         div(class='sidebar')
@@ -30,3 +46,5 @@ html(lang='en')
 
         div(class='main')
           block content 
+
+      footer 

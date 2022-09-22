@@ -1,37 +1,280 @@
+/*
+  TABLE OF CONTENTS
+  #General Formatting
+  #Header
+  #Main
+  # ##Index
+  #Footer
+  #Actions
+*/
+
+/* ######### #GENERAL FORMATTING ########## */
+
 body {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Cairo Play", sans-serif, monospace;
 }
 
 .app-container {
   display: flex;
+  width: 100%;
   flex-direction: column;
+  align-items: center;
 }
 
+a {
+  text-decoration: none;
+  font-size: 1.3rem;
+  color: rgb(78, 81, 97);
+  transition: color 0.5s, text-shadow 0.5s, letter-spacing 0.5s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    letter-spacing: 0.05ch;
+    color: rgb(255, 0, 0);
+    text-shadow: 1px 1px 1px blueviolet;
+  }
+}
+
+/* ############# #HEADER ################## */
+
 header {
-  height: 60px;
-  border-bottom: solid 1px black;
-  padding: 5px 15px;
+  width: 100%;
+  height: 85px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  background-image: url("../images/music-equalizer.jpeg");
+  background-size: contain;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.logo-container {
+  border-radius: 5px;
+  height: 100%;
+  display: flex;
+  column-gap: 5px;
+  align-items: center;
+  padding-left: 10px;
+  margin-left: 20px;
+}
+
+.logo-text-container {
+  font-family: "Rock Salt", cursive;
+  display: flex;
+  flex-direction: column;
+
+  transition: filter 0.5s;
+}
+
+.logo-text-container a {
+  text-decoration: none;
+  line-height: clamp(22px, 4vw, 30px);
+  margin-left: -10px;
+  color: white;
+  text-shadow: 1px 1px 1px blueviolet;
+}
+
+@media (hover: hover) {
+  .logo-text-container:hover {
+    filter: hue-rotate(50deg);
+  }
+
+  .logo-text-container a:hover {
+    letter-spacing: 0ch;
+  }
 }
 
 .header-nav nav ul {
   list-style: none;
   padding: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  width: 250px;
+  column-gap: 4vw;
 }
 
-/* .cart-img {
-} */
+.burger-container {
+  display: none;
+}
+
+.mobile-header-nav {
+  position: absolute;
+  height: 100px;
+  width: 100%;
+  background: white;
+  top: 100px;
+}
+
+@media only screen and (min-width: 720px) {
+  .mobile-header-nav {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .logo-container {
+    width: 25vw;
+    min-width: 150px;
+    margin-left: -20px;
+  }
+
+  .logo-img {
+    display: none;
+  }
+
+  .logo-text-container a {
+    margin-left: 30px;
+  }
+
+  .header-nav {
+    display: none;
+  }
+
+  .burger-container {
+    display: block;
+    width: 65px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .burger {
+    width: 100%;
+    border: solid 1px white;
+    transition: transform 1s, opacity 1s;
+  }
+}
+
+.header-nav-links {
+  color: white;
+}
+
+.cart-img {
+  margin-right: 30px;
+}
+
+/* ################# #MAIN ############### */
 
 main {
   flex-grow: 7;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
+
+/*            #### #Index ####           */
+
+.index-container {
+  padding: 10px 25px;
+}
+
+.index-title {
+  margin-top: -55px;
+  margin-left: 25px;
+  color: white;
+  text-decoration: underline;
+}
+
+.banner-img {
+  width: 100%;
+  height: 30vw;
+  object-fit: cover;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.nav-item {
+  width: 300px;
+}
+
+.nav-image {
+  object-fit: cover;
+  width: 300px;
+  cursor: pointer;
+
+  transition: transform 0.5s, box-shadow 0.5s;
+}
+
+@media (hover: hover) {
+  .nav-image:hover {
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.411);
+    transform: scale(1.1);
+  }
+}
+
+.nav-desc-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-desc-container > h3 {
+  line-height: 20px;
+  font-weight: bold;
+}
+
+.nav-desc-container > p {
+  text-align: justify;
+}
+
+.mission-statement-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.ad-container {
+  margin-top: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  row-gap: 10px;
+}
+
+.ads {
+  display: flex;
+  column-gap: 10px;
+}
+
+.small-imgs-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+/* ############### #FOOTER ################ */
+footer {
+  margin-top: 75px;
+  height: 100px;
+  width: 100%;
+  background: rgb(17, 17, 17);
+}
+
+/* ############### #ACTIONS ################ */
 
 .hidden {
   display: none;
+}
+
+.burger-top-open {
+  transform: rotate(45deg) translateY(25px) translateX(8px);
+}
+
+.burger-mid-open {
+  opacity: 0;
+}
+
+.burger-bottom-open {
+  transform: rotate(-45deg) translateY(-25px) translateX(8px);
 }
