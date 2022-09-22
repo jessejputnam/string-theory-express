@@ -1,0 +1,26 @@
+extends layout 
+
+block content 
+  h1 Category: #{category.name} 
+  
+  div
+    h4 Instruments 
+
+    dl 
+      each instrument in category_instruments 
+        dt 
+          a(href=instrument.url) #{instrument.name}
+
+      else 
+        p This category has no instruments 
+
+  div 
+    h4 Accessories  
+    
+    dl 
+      each accessory in category_acessories 
+        dt 
+          a(href=accessory.url) #{accessory.name} 
+      
+      else 
+        p This category has no acessories

@@ -5,10 +5,6 @@ const router = express.Router();
 const accessory_controller = require("../controllers/accessoryController");
 const category_controller = require("../controllers/categoryController");
 const instrument_controller = require("../controllers/instrumentController");
-const page_controller = require("../controllers/pageController");
-
-// GET catalog home index
-router.get("/", page_controller.catalog_index);
 
 /// ######## ACCESSORY ROUTES ######## ///
 
