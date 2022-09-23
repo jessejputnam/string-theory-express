@@ -27,9 +27,10 @@ Users should be able to:
 - View cart total on items
 - Add, delete, update, and read all items with admin password
 
-Programming focus
+Programming focus:
 
 - MVC architecture
+- CRUD functionality with backend communication
 - Connecting storefront to backend database for realtime inventory access
 - Keeping frontend/backend inventory items/lists in sync
 - Database queries
@@ -48,10 +49,7 @@ Programming focus
 
 ### Built with
 
-- Semantic HTML5 markup
-- CSS custom properties
 - Flexbox
-- CSS Grid
 - Mobile-first workflow
 - [React](https://reactjs.org/) - Frontend scripting language
 - [Node.js](https://nodejs.dev/en/) - Backend JavaScript runtime environment
