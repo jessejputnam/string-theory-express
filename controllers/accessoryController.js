@@ -27,7 +27,6 @@ exports.accessory_detail = (req, res, next) => {
       if (err) {
         return next(err);
       }
-      console.log(accessory);
       if (accessory === null) {
         // No results
         const err = new Error("Accessory not found");
@@ -125,13 +124,28 @@ exports.accessory_create_post = [
 ];
 
 // Display Accessory delete form on GET
-exports.accessory_delete_get = (req, res) => {
-  res.send("NOT IMPLEMENTED: Accessory delete GET");
+exports.accessory_delete_get = (req, res, next) => {
+  Accessory.findById(req.params.id)
+    .populate("category")
+    .exec((err, accessory) => {
+      if (err) {
+        return next(err);
+      }
+      if (accessory === null) {
+        // No results, redirect to list of accessories
+        res.redirect("/catalog/accessories");
+      }
+      // Successful, so render
+      res.render("accessory_delete", {
+        title: "Delete Accessory",
+        accessory: accessory
+      });
+    });
 };
 
 // Handle Accessory delete on POST
-exports.accessory_delete_post = (req, res) => {
-  res.send("NOT IMPLEMENTED: Accessory delete POST");
+exports.accessory_delete_post = (req, res, next) => {
+  // Accessory.findById
 };
 
 // Display Accessory update form on GET
