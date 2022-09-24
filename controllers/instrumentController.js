@@ -1,4 +1,8 @@
 const Instrument = require("../models/instrument");
+const Category = require("../models/category");
+
+// const async = require("async");
+const { body, validationResult } = require("express-validator");
 
 // Display list of all accessories
 exports.instrument_list = (req, res, next) => {
@@ -44,14 +48,81 @@ exports.instrument_detail = (req, res, next) => {
 };
 
 // Display Instrument create form on GET
-exports.instrument_create_get = (req, res) => {
-  res.send("NOT IMPLEMENTED: Instrument create GET");
+exports.instrument_create_get = (req, res, next) => {
+  Category.find({}, "name").exec((err, categories) => {
+    if (err) {
+      return next(err);
+    }
+    // Successful, so render
+    res.render("instrument_form", {
+      title: "Create Instrument",
+      category_list: categories
+    });
+  });
 };
 
 // Handle Instrument create on POST
-exports.instrument_create_post = (req, res) => {
-  res.send("NOT IMPLEMEMTED: Instrument create POST");
-};
+exports.instrument_create_post = [
+  // Validate and sanitize fields
+  body("name", "Instrument must be specified")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("company", "Company must be specified")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("desc").escape(),
+  body("price", "Price must be valid number greater than 0").isNumeric(),
+  body(
+    "stock",
+    "Stock must be valid number greater than or equal to 0"
+  ).isNumeric(),
+
+  // Process request after validation and sanitization
+  (req, res, next) => {
+    // Extract validation errors from a request
+    const errors = validationResult(req);
+
+    // Create an Instrument obj with escaped and trimmed data
+    const instrument = new Instrument({
+      name: req.body.name,
+      company: req.body.company,
+      desc: req.body.desc,
+      category: req.body.category,
+      price: req.body.price,
+      stock: req.body.stock,
+      imgUrl: req.body.imgUrl
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors, render form again with sanitized values / error messages
+      Category.find({}, "name").exec(function (err, categories) {
+        if (err) {
+          return next(err);
+        }
+        // Successful, so render
+        res.render("instrument_form", {
+          title: "Create Instrument",
+          category_list: categories,
+          selected_category: instrument.category._id,
+          errors: errors.array(),
+          instrument: instrument
+        });
+      });
+      return;
+    } else {
+      // Data form is valid
+      instrument.save((err) => {
+        if (err) {
+          return next(err);
+        }
+        // Successful - redirect to new instrument
+        res.redirect(instrument.url);
+      });
+    }
+  }
+];
 
 // Display Instrument delete form on GET
 exports.instrument_delete_get = (req, res) => {

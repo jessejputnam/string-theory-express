@@ -1,12 +1,15 @@
 extends layout 
 
 block content 
-  h1= title 
+  div.list-wrapper
+    h1= title 
+    a.btn.btn-secondary(href="/catalog/instrument/create") Create Instrument
+    div.list-results
+      each instrument in instrument_list 
+        div.list-result-container
+          img.list-result-img(onclick=`location.href='${instrument.url}'` src=`${instrument.imgUrl}`)
+          a.btn.btn-secondary(href=instrument.url)=  instrument.name
+          p $#{instrument.price}
 
-  ul 
-    each category in instrument_list 
-      li 
-        a(href=instrument.url)  instrument.name
-
-    else 
-      li There are no instruments 
+      else 
+        p There are no instruments 

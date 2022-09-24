@@ -17,8 +17,8 @@ const InstrumentSchema = new Schema({
 });
 
 // Virtual for category url
-InstrumentSchema.virtual("url", function () {
-  return `/catalog/${this.category.name}/instrument/${this._id}`;
+InstrumentSchema.virtual("url").get(function () {
+  return `/catalog/instrument/${this._id}`;
 });
 
 module.exports = mongoose.model("Instrument", InstrumentSchema);

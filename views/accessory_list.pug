@@ -1,11 +1,13 @@
 extends layout 
 
 block content 
-  h1= title 
-
-  ul 
-    each val in accessory_list 
-      li 
-        a(href=val.url) #{val.accessory.name} : $#{val.price}
-    else 
-      li There are no accessories
+  div.list-wrapper
+    h1= title 
+    a.btn.btn-secondary(href="/catalog/accessory/create") Create Accessory
+    div.list-results
+        each accessory in accessory_list 
+          div.list-result-container
+            img.list-result-img(onclick=`location.href='${accessory.url}'` src=accessory.imgUrl, alt=accessory.name)
+            a.btn.btn-secondary(href=accessory.url)= accessory.name
+        else 
+          li There are no accessories

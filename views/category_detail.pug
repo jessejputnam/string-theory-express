@@ -1,26 +1,27 @@
 extends layout 
 
 block content 
-  h1 Category: #{category.name} 
-  
-  div
-    h4 Instruments 
-
-    dl 
-      each instrument in category_instruments 
-        dt 
-          a(href=instrument.url) #{instrument.name}
-
-      else 
-        p This category has no instruments 
-
-  div 
-    h4 Accessories  
+  div.detail-wrapper
+    h1 Category: #{category.name} 
     
-    dl 
-      each accessory in category_acessories 
-        dt 
-          a(href=accessory.url) #{accessory.name} 
+    div
+      h4 Instruments 
+
+      dl 
+        each instrument in category_instruments 
+          dt 
+            a(href=instrument.url) #{instrument.name}
+
+        else 
+          p This category has no instruments 
+
+    div 
+      h4 Accessories  
       
-      else 
-        p This category has no accessories
+      dl 
+        each accessory in category_accessories 
+          dt 
+            a(href=accessory.url) #{accessory.name} 
+        
+        else 
+          p This category has no accessories

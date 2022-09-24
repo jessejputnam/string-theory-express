@@ -1,0 +1,30 @@
+extends layout 
+
+block content 
+  div.form-wrapper
+    h1 #{title}
+
+    form(method='POST' action='')
+      div.form-group  
+        label(for='name') Instrument:
+        input#name.form-control(type='text' name='name' required=true value=(undefined===instrument ? "" : instrument.name))
+        label(for='company') Company:
+        input#company.form-control(type='text' name='company' required=true value=(undefined===instrument ? "" : instrument.company))
+        label(for='name') Description:
+        input#desc.form-control(type='text' name='desc' required=true value=(undefined===instrument ? "" : instrument.desc))
+        label(for='category') Category:
+        select#category.form-control(type='select' placeholder='Select category' name='category' required=true value=(undefined===instrument ? "" : instrument.name)) - category_list.sort(function(a, b) {let catA = a.name.toUpperCase(); let catB = b.name.toUpperCase(); return (catA < catB) ? -1 : (catA > catB) ? 1 : 0;});
+          for category in category_list 
+            option(value=category._id, selected=(selected_category==category._id.toString() ? 'selected' : false)) #{category.name}
+        label(for='price') Price:
+        input#price.form-control(type='number' name='price' value=(undefined===instrument ? 0 : instrument.price))
+        label(for='imgUrl') Image URL:
+        input#imgUrl.form-control(type='text' name='imgUrl' value=(undefined===instrument ? "" : instrument.imgUrl))
+        label(for='stock') Stock Available:
+        input#stock.form-control(type='number' name='stock' value=(undefined===instrument ? 0 : instrument.stock))
+      button.btn.btn-secondary(type='submit') Submit
+
+    if errors 
+      ul 
+        for error in errors 
+          li!= error.msg

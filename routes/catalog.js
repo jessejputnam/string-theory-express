@@ -16,30 +16,30 @@ router.post("/accessory/create", accessory_controller.accessory_create_post);
 
 // GET request for deleting an Accessory
 router.get(
-  "/:category/accessory/:id/delete",
+  "/accessory/:id/delete",
   accessory_controller.accessory_delete_get
 );
 
 // POST request for deleting an Accessory
 router.post(
-  "/:category/accessory/:id/delete",
+  "/accessory/:id/delete",
   accessory_controller.accessory_delete_post
 );
 
 // GET request for updating an Accessory
 router.get(
-  "/:category/accessory/:id/update",
+  "/accessory/:id/update",
   accessory_controller.accessory_update_get
 );
 
 // POST request for updating an Accessory
 router.post(
-  "/:category/accessory/:id/update",
+  "/accessory/:id/update",
   accessory_controller.accessory_update_post
 );
 
 // GET request for one Accessory
-router.get("/:category/accessory/:id", accessory_controller.accessory_detail);
+router.get("/accessory/:id", accessory_controller.accessory_detail);
 
 // GET request for list of all Accessory items
 router.get("/accessories", accessory_controller.accessory_list);
@@ -80,31 +80,31 @@ router.post("/instrument/create", instrument_controller.instrument_create_post);
 
 // GET request for deleting an Instrument
 router.get(
-  "/:category/instrument/:id/delete",
+  "/instrument/:id/delete",
   instrument_controller.instrument_delete_get
 );
 
 // POST request for deleting an Instrument
 router.post(
-  "/:category/instrument/:id/delete",
+  "/instrument/:id/delete",
   instrument_controller.instrument_delete_post
 );
 
 // GET request for updating an Instrument
 router.get(
-  "/:category/instrument/:id/update",
+  "/instrument/:id/update",
   instrument_controller.instrument_update_get
 );
 
 // POST request for updating an Instrument
 router.post(
-  "/:category/instrument/:id/update",
+  "/instrument/:id/update",
   instrument_controller.instrument_update_post
 );
 
 // GET request for one Instrument
 router.get(
-  "/:category/instrument/:id",
+  "/instrument/:id",
   instrument_controller.instrument_detail
 );
 

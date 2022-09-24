@@ -17,8 +17,8 @@ const AccessorySchema = new Schema({
 });
 
 // Virtual for category url
-AccessorySchema.virtual("url", function () {
-  return `/catalog/${this.category.name}/accesssory/${this._id}`;
+AccessorySchema.virtual("url").get(function () {
+  return `/catalog/accessory/${this._id}`;
 });
 
 module.exports = mongoose.model("Accessory", AccessorySchema);

@@ -1,14 +1,14 @@
 extends layout 
 
 block content 
-  h1= title 
+  div.list-wrapper
+    h1= title 
+    a.btn.btn-secondary(href="/catalog/category/create") Create Category
+    div.list-results
+      each category in category_list 
+        div.list-result-container
+          img.list-result-img(onclick=`location.href='${category.url}'` src=category.imgUrl, alt=category.name)
+          a.btn.btn-secondary(href=category.url)= category.name
 
-  ul 
-    each category in category_list 
-      li 
-        a(href=category._id class="check")= category.name
-
-    else 
-      li There are no categories
-
-  a(href="/catalog/category/create") Create Category
+      else 
+        p There are no categories

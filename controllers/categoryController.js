@@ -9,7 +9,7 @@ const Accessory = require("../models/accessory");
 
 // Display list of all accessories
 exports.category_list = (req, res, next) => {
-  Category.find({}, "name")
+  Category.find({}, "name imgUrl")
     .sort({ name: 1 })
     .exec(function (err, list_categories) {
       if (err) {
@@ -34,7 +34,7 @@ exports.category_detail = (req, res, next) => {
         Instrument.find({ category: req.params.id }).exec(callback);
       },
       category_accessories(callback) {
-        Accessory.find({ category: req.params.id });
+        Accessory.find({ category: req.params.id }).exec(callback);
       }
     },
     (err, results) => {
@@ -73,7 +73,10 @@ exports.category_create_post = [
     const errors = validationResult(req);
 
     // Create a category objet with escaped and trimmed data
-    const category = new Category({ name: req.body.name });
+    const category = new Category({
+      name: req.body.name,
+      imgUrl: req.body.imgUrl
+    });
 
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values/error messages
@@ -95,11 +98,11 @@ exports.category_create_post = [
           // Category found, redirect to its detail page
           res.redirect(found_category._id);
         } else {
-          console.log(category.url);
           category.save((err) => {
             if (err) {
               return next(err);
             }
+
             // Category saved. Redirect to category detail page
             res.redirect(category.url);
           });
