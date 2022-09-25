@@ -112,11 +112,34 @@ header {
 }
 
 .mobile-header-nav {
+  height: 0;
+  overflow: hidden;
   position: absolute;
-  height: 100px;
+  background-color: rgba(25, 25, 25, 0.515);
   width: 100%;
-  background: white;
-  top: 100px;
+  top: 115px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  transition: height 1s;
+}
+
+.mobile-header-nav ul {
+  list-style: none;
+  padding: 20px 25px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 50px;
+}
+
+.mobile-header-nav ul li a {
+  font-size: 2rem;
+  text-shadow: 1px 1px 1px black;
+}
+
+.mobile-header-open {
+  height: 88vh;
 }
 
 @media only screen and (min-width: 720px) {
@@ -165,7 +188,7 @@ header {
 }
 
 .cart-img {
-  margin-right: 30px;
+  margin: 0 35px;
 }
 
 /* ################# #MAIN ############### */
