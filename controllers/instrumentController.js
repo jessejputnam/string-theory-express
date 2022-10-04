@@ -1,7 +1,7 @@
 const Instrument = require("../models/instrument");
 const Category = require("../models/category");
 
-// const async = require("async");
+const async = require("async");
 const { body, validationResult } = require("express-validator");
 
 // Display list of all accessories
@@ -161,10 +161,104 @@ exports.instrument_delete_post = (req, res, next) => {
 
 // Display Instrument update form on GET
 exports.instrument_update_get = (req, res) => {
-  res.send("NOT IMPLEMENTED: Instrument update GET");
+  // Get instrument and categories for form
+  async.parallel(
+    {
+      instrument(callback) {
+        Instrument.findById(req.params.id).populate("category").exec(callback);
+      },
+      categories(callback) {
+        Category.find(callback);
+      }
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.instrument === null) {
+        // No results
+        const err = new Error("Instrument not found");
+        err.status = 404;
+        return next(err);
+      }
+      // Success
+      res.render("instrument_form", {
+        title: "Update Instrument",
+        category_list: results.categories,
+        instrument: results.instrument,
+        selected_category: results.instrument.category._id
+      });
+    }
+  );
 };
 
 // Handle Instrument update on POST
-exports.instrument_update_post = (req, res) => {
-  res.send("NOT IMPLEMENTED: Instrument update POST");
-};
+exports.instrument_update_post = [
+  // Validate and sanitize fields
+  body("name", "Instrument must be specified")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("company", "Company must be specified")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("desc").escape(),
+  body("price", "Price must be valid number greater than 0").isNumeric(),
+  body(
+    "stock",
+    "Stock must be valid number greater than or equal to 0"
+  ).isNumeric(),
+
+  // Process request after validation and sanitization
+  (req, res, next) => {
+    // Extract validation errors from a request
+    const errors = validationResult(req);
+
+    // Create an Instrument obj with escaped and trimmed data
+    const instrument = new Instrument({
+      name: req.body.name,
+      company: req.body.company,
+      desc: req.body.desc,
+      category: req.body.category,
+      price: req.body.price,
+      stock: req.body.stock,
+      imgUrl:
+        req.body.imgUrl ||
+        "https://www.aaronfaber.com/wp-content/uploads/2017/03/product-placeholder-wp.jpg",
+      _id: req.params.id
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors, render form again with sanitized values / error messages
+      Category.find({}, "name").exec(function (err, categories) {
+        if (err) {
+          return next(err);
+        }
+        // Successful, so render
+        res.render("instrument_form", {
+          title: "Create Instrument",
+          category_list: categories,
+          selected_category: instrument.category._id,
+          errors: errors.array(),
+          instrument: instrument
+        });
+      });
+      return;
+    }
+
+    // Data form is valid
+    Instrument.findByIdAndUpdate(
+      req.params.id,
+      instrument,
+      (err, theinstrument) => {
+        if (err) {
+          return next(err);
+        }
+
+        // Successful: redirect to accessory detail page
+        res.redirect(theinstrument.url);
+      }
+    );
+  }
+];

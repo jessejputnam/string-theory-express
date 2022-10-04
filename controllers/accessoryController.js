@@ -1,6 +1,6 @@
 const Accessory = require("../models/accessory");
 const Category = require("../models/category");
-// const async = require("async");
+const async = require("async");
 const { body, validationResult } = require("express-validator");
 
 // Display list of all accessories
@@ -159,11 +159,105 @@ exports.accessory_delete_post = (req, res, next) => {
 };
 
 // Display Accessory update form on GET
-exports.accessory_update_get = (req, res) => {
-  res.send("NOT IMPLEMENTED: Accessory update GET");
+exports.accessory_update_get = (req, res, next) => {
+  // Get accessory and categories for form
+  async.parallel(
+    {
+      accessory(callback) {
+        Accessory.findById(req.params.id).populate("category").exec(callback);
+      },
+      categories(callback) {
+        Category.find(callback);
+      }
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.accessory === null) {
+        // No results
+        const err = new Error("Accessory not found");
+        err.status = 404;
+        return next(err);
+      }
+      // Success
+      res.render("accessory_form", {
+        title: "Update Accessory",
+        category_list: results.categories,
+        accessory: results.accessory,
+        selected_category: results.accessory.category._id
+      });
+    }
+  );
 };
 
 // Handle Accessory update on POST
-exports.accessory_update_post = (req, res) => {
-  res.send("NOT IMPLEMENTED: Accessory update POST");
-};
+exports.accessory_update_post = [
+  // Validate and sanitize fields
+  body("name", "Accessory must be specified")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("company", "Company must be specified")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("desc").escape(),
+  body("price", "Price must be valid number greater than 0").isNumeric(),
+  body(
+    "stock",
+    "Stock must be valid number greater than or equal to 0"
+  ).isNumeric(),
+
+  // Process request after validation and sanitization
+  (req, res, next) => {
+    // Extract validation errors from a request
+    const errors = validationResult(req);
+
+    // Create an Accessory obj with escaped and trimmed data
+    const accessory = new Accessory({
+      name: req.body.name,
+      company: req.body.company,
+      desc: req.body.desc,
+      category: req.body.category,
+      price: req.body.price,
+      stock: req.body.stock,
+      imgUrl:
+        req.body.imgUrl ||
+        "https://www.aaronfaber.com/wp-content/uploads/2017/03/product-placeholder-wp.jpg",
+      _id: req.params.id
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors, render form again with sanitized values / error messages
+      Category.find({}, "name").exec(function (err, categories) {
+        if (err) {
+          return next(err);
+        }
+        // Successful, so render
+        res.render("accessory_form", {
+          title: "Create Accessory",
+          category_list: categories,
+          selected_category: accessory.category._id,
+          errors: errors.array(),
+          accessory: accessory
+        });
+      });
+      return;
+    }
+
+    // Data form is valid
+    Accessory.findByIdAndUpdate(
+      req.params.id,
+      accessory,
+      (err, theaccessory) => {
+        if (err) {
+          return next(err);
+        }
+
+        // Successful: redirect to accessory detail page
+        res.redirect(theaccessory.url);
+      }
+    );
+  }
+];
