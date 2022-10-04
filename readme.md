@@ -62,6 +62,12 @@ After working with React for so long, learning about the MVC architecture has ma
 
 The Node/Express/Mongoose framework with the MVC architecture allowed for an easier mental model for where concerns flowed and what, at any given file, the purpose was.
 
+### Continued Development
+
+To add:
+
+- Simulated shopping cart functionality
+
 ## Author
 
 - Website - [Jesse Putnam](https://jessejputnam.com)
