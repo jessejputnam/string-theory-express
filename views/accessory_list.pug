@@ -8,6 +8,6 @@ block content
         each accessory in accessory_list 
           div.list-result-container
             img.list-result-img(onclick=`location.href='${accessory.url}'` src=accessory.imgUrl, alt=accessory.name)
-            a.btn.btn-secondary(href=accessory.url)= accessory.name
+            a.btn.btn-secondary(href=accessory.url) !{accessory.name}
         else 
           li There are no accessories

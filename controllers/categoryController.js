@@ -7,7 +7,7 @@ const Category = require("../models/category");
 const Instrument = require("../models/instrument");
 const Accessory = require("../models/accessory");
 
-// Display list of all accessories
+// Display list of all categories
 exports.category_list = (req, res, next) => {
   Category.find({}, "name imgUrl")
     .sort({ name: 1 })
@@ -23,7 +23,7 @@ exports.category_list = (req, res, next) => {
     });
 };
 
-// Display detail page for a specific Accessory
+// Display detail page for a specific Category
 exports.category_detail = (req, res, next) => {
   async.parallel(
     {
@@ -58,12 +58,12 @@ exports.category_detail = (req, res, next) => {
   );
 };
 
-// Display Accessory create form on GET
+// Display Category create form on GET
 exports.category_create_get = (req, res, next) => {
   res.render("category_form", { title: "Create Category" });
 };
 
-// Handle Accessory create on POST
+// Handle Category create on POST
 exports.category_create_post = [
   // Validate and sanitize the name field
   body("name", "Category name required").trim().isLength({ min: 1 }).escape(),
@@ -75,7 +75,9 @@ exports.category_create_post = [
     // Create a category objet with escaped and trimmed data
     const category = new Category({
       name: req.body.name,
-      imgUrl: req.body.imgUrl
+      imgUrl:
+        req.body.imgUrl ||
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png"
     });
 
     if (!errors.isEmpty()) {
@@ -112,22 +114,89 @@ exports.category_create_post = [
   }
 ];
 
-// Display Accessory delete form on GET
-exports.category_delete_get = (req, res) => {
-  res.send("NOT IMPLEMENTED: Category delete GET");
+// Display Category delete form on GET
+exports.category_delete_get = (req, res, next) => {
+  async.parallel(
+    {
+      category(callback) {
+        Category.findById(req.params.id).exec(callback);
+      },
+      category_instruments(callback) {
+        Instrument.find({ category: req.params.id }).exec(callback);
+      },
+      category_accessories(callback) {
+        Accessory.find({ category: req.params.id }).exec(callback);
+      }
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.category === null) {
+        // No results
+        res.redirect("catalog/categories");
+      }
+      // Successful, so render
+      res.render("category_delete", {
+        title: "Delete Category",
+        category: results.category,
+        category_instruments: results.category_instruments,
+        category_accessories: results.category_accessories
+      });
+    }
+  );
 };
 
-// Handle Accessory delete on POST
-exports.category_delete_post = (req, res) => {
-  res.send("NOT IMPLEMENTED: Category delete POST");
+// Handle Category delete on POST
+exports.category_delete_post = (req, res, next) => {
+  async.parallel(
+    {
+      category(callback) {
+        Category.findById(req.body.categoryid).exec(callback);
+      },
+      category_instruments(callback) {
+        Instrument.find({ category: req.body.categoryid }).exec(callback);
+      },
+      category_accessories(callback) {
+        Accessory.find({ category: req.body.categoryid }).exec(callback);
+      }
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      // Success
+      if (
+        results.category_instruments.length > 0 ||
+        results.category_accessories.length > 0
+      ) {
+        // Category has items. Render same as GET route
+        res.render("category_delete", {
+          title: "Delete Category",
+          category: results.category,
+          category_instruments: results.category_instruments,
+          category_accessories: results.category_accessories
+        });
+        return;
+      }
+      // Category has  no items. Delete object and redirect to category list
+      Category.findByIdAndRemove(req.body.categoryid, (er) => {
+        if (err) {
+          return next(err);
+        }
+        // Success - go to category list
+        res.redirect("/catalog/categories");
+      });
+    }
+  );
 };
 
-// Display Accessory update form on GET
+// Display Category update form on GET
 exports.category_update_get = (req, res) => {
   res.send("NOT IMPLEMENTED: Category update GET");
 };
 
-// Handle Accessory update on POST
+// Handle Category update on POST
 exports.category_update_post = (req, res) => {
   res.send("NOT IMPLEMENTED: Category update POST");
 };

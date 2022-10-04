@@ -3,17 +3,18 @@ extends layout
 block content 
   div.detail-wrapper
     div.detail-title-container 
-      h1= name 
-      a.btn.btn-secondary(href=`${category.url}`)= category.name
-    p.detail-company !{company}
+      h1 !{accessory.name} 
+      a.btn.btn-secondary(href=`${accessory.category.url}`)= accessory.category.name
+      a.btn.btn-secondary(href=`${accessory.url}/delete`) Delete Accessory
+    p.detail-company !{accessory.company}
 
     div.detail-img-container
-      img.detail-img(src=imgUrl alt=(name))
+      img.detail-img(src=accessory.imgUrl alt=(accessory.name))
 
     div.detail-info-container
-      p.detail-desc #{desc}
+      p.detail-desc !{accessory.desc}
 
       div.detail-price-container 
-        p= "$" + price
-        p Stock: #{stock}
+        p= "$" + accessory.price
+        p Stock: #{accessory.stock}
       

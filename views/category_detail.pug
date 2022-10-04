@@ -3,6 +3,7 @@ extends layout
 block content 
   div.detail-wrapper
     h1 Category: #{category.name} 
+    a.btn.btn-secondary(href=`${category.url}/delete`) Delete Category
     
     div
       h4 Instruments 

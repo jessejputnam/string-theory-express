@@ -35,13 +35,7 @@ exports.accessory_detail = (req, res, next) => {
       }
       // Successful, so render
       res.render("accessory_detail", {
-        name: accessory.name,
-        company: accessory.company,
-        desc: accessory.desc,
-        category: accessory.category,
-        price: accessory.price,
-        stock: accessory.stock,
-        imgUrl: accessory.imgUrl
+        accessory: accessory
       });
     });
 };
@@ -91,7 +85,9 @@ exports.accessory_create_post = [
       category: req.body.category,
       price: req.body.price,
       stock: req.body.stock,
-      imgUrl: req.body.imgUrl
+      imgUrl:
+        req.body.imgUrl ||
+        "https://www.aaronfaber.com/wp-content/uploads/2017/03/product-placeholder-wp.jpg"
     });
 
     if (!errors.isEmpty()) {
@@ -145,7 +141,23 @@ exports.accessory_delete_get = (req, res, next) => {
 
 // Handle Accessory delete on POST
 exports.accessory_delete_post = (req, res, next) => {
-  // Accessory.findById
+  Accessory.findById(req.params.id).exec((err, accessory) => {
+    if (err) {
+      return next(err);
+    }
+    if (accessory === null) {
+      // No results, redirect to list of accessories
+      res.redirect("/catalog/accessories");
+    }
+    // Delete object and redirect to list of accessories
+    Accessory.findByIdAndRemove(req.body.accessoryid, (err) => {
+      if (err) {
+        return next(err);
+      }
+      // Success - go to accessory list
+      res.redirect("/catalog/accessories");
+    });
+  });
 };
 
 // Display Accessory update form on GET

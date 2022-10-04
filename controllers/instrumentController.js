@@ -92,7 +92,9 @@ exports.instrument_create_post = [
       category: req.body.category,
       price: req.body.price,
       stock: req.body.stock,
-      imgUrl: req.body.imgUrl
+      imgUrl:
+        req.body.imgUrl ||
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png"
     });
 
     if (!errors.isEmpty()) {

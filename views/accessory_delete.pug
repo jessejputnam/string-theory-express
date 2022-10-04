@@ -2,4 +2,12 @@ extends layout
 
 block content 
   div.delete-wrapper 
+    h1 #{title}: !{accessory.name}
     
+    p Do you really want to delete this accessory?
+
+    form(method='POST' action='')
+      div.form-group 
+        input#accessoryid.form-control(type='hidden' name='accessoryid' required='true' value=accessory._id)
+
+      button.btn.btn-secondary(type='submit') Delete
