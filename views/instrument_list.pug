@@ -7,7 +7,7 @@ block content
     div.list-results
       each instrument in instrument_list 
         div.list-result-container
-          img.list-result-img(onclick=`location.href='${instrument.url}'` src=`${instrument.imgUrl}`)
+          img.list-result-img(id=instrument.url  src=instrument.imgUrl)
           a.btn.btn-secondary(href=instrument.url)=  instrument.name
           p $#{instrument.price}
 

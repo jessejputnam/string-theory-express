@@ -1,5 +1,6 @@
 "use strict";
 
+// HEADER
 const burger = document.querySelector(".burger-container");
 const burgerTop = document.querySelector(".top-burger");
 const burgerMid = document.querySelector(".mid-burger");
@@ -36,3 +37,31 @@ burger.addEventListener("click", (e) => {
     // mobileMenu.classList.remove("hidden");
   }
 });
+
+// INDEX
+const instrLink = document.getElementById("link-instruments");
+const accessLink = document.getElementById("link-accessories");
+const catLink = document.getElementById("link-categories");
+
+if (instrLink) {
+  instrLink.addEventListener("click", () => {
+    location.href = "/catalog/instruments";
+  });
+  accessLink.addEventListener("click", () => {
+    location.href = "/catalog/accessories";
+  });
+  catLink.addEventListener("click", () => {
+    location.href = "/catalog/categories";
+  });
+}
+
+// LIST PAGES
+const listItems = document.querySelectorAll(".list-result-img");
+
+if (listItems) {
+  listItems.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      location.href = e.target.id;
+    });
+  });
+}

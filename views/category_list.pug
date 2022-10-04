@@ -7,7 +7,7 @@ block content
     div.list-results
       each category in category_list 
         div.list-result-container
-          img.list-result-img(onclick=`location.href='${category.url}'` src=category.imgUrl, alt=category.name)
+          img.list-result-img(id=category.url src=category.imgUrl, alt=category.name)
           a.btn.btn-secondary(href=category.url)= category.name
 
       else 
