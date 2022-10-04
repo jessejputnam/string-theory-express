@@ -1,0 +1,13 @@
+extends layout 
+
+block content 
+  div.delete-wrapper 
+    h1 #{title}: !{instrument.name}
+    
+    p Do you really want to delete this instrument?
+
+    form(method='POST' action='')
+      div.form-group 
+        input#instrumentid.form-control(type='hidden' name='instrumentid' required='true' value=instrument._id)
+
+      button.btn.btn-secondary(type='submit') Delete

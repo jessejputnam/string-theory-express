@@ -36,13 +36,7 @@ exports.instrument_detail = (req, res, next) => {
       }
       // Successful, so render
       res.render("instrument_detail", {
-        name: instrument.name,
-        company: instrument.company,
-        desc: instrument.desc,
-        category: instrument.category,
-        price: instrument.price,
-        stock: instrument.stock,
-        imgUrl: instrument.imgUrl
+        instrument: instrument
       });
     });
 };
@@ -127,13 +121,42 @@ exports.instrument_create_post = [
 ];
 
 // Display Instrument delete form on GET
-exports.instrument_delete_get = (req, res) => {
-  res.send("NOT IMPLEMENTED: Instrument delete GET");
+exports.instrument_delete_get = (req, res, next) => {
+  Instrument.findById(req.params.id).exec((err, instrument) => {
+    if (err) {
+      return next(err);
+    }
+    if (instrument === null) {
+      // No results, redirect to list of instruments
+      res.redirect("/catalog/instruments");
+    }
+    // Successful, so render
+    res.render("instrument_delete", {
+      title: "Delete Instrument",
+      instrument: instrument
+    });
+  });
 };
 
 // Handle Instrument delete on POST
-exports.instrument_delete_post = (req, res) => {
-  res.send("NOT IMPLEMENTED: Instrument delete POST");
+exports.instrument_delete_post = (req, res, next) => {
+  Instrument.findById(req.body.instrumentid).exec((err, instrument) => {
+    if (err) {
+      return next(err);
+    }
+    if (instrument === null) {
+      // No results, redirect to list of instruments
+      res.redirect("/catalog/instruments");
+    }
+    // Delete object and redirect to list of instruments
+    Instrument.findByIdAndRemove(req.body.instrumentid, (err) => {
+      if (err) {
+        return next(err);
+      }
+      // Success, go to instrument list
+      res.redirect("/catalog/instruments");
+    });
+  });
 };
 
 // Display Instrument update form on GET

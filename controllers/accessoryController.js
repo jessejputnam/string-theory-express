@@ -121,27 +121,25 @@ exports.accessory_create_post = [
 
 // Display Accessory delete form on GET
 exports.accessory_delete_get = (req, res, next) => {
-  Accessory.findById(req.params.id)
-    .populate("category")
-    .exec((err, accessory) => {
-      if (err) {
-        return next(err);
-      }
-      if (accessory === null) {
-        // No results, redirect to list of accessories
-        res.redirect("/catalog/accessories");
-      }
-      // Successful, so render
-      res.render("accessory_delete", {
-        title: "Delete Accessory",
-        accessory: accessory
-      });
+  Accessory.findById(req.params.id).exec((err, accessory) => {
+    if (err) {
+      return next(err);
+    }
+    if (accessory === null) {
+      // No results, redirect to list of accessories
+      res.redirect("/catalog/accessories");
+    }
+    // Successful, so render
+    res.render("accessory_delete", {
+      title: "Delete Accessory",
+      accessory: accessory
     });
+  });
 };
 
 // Handle Accessory delete on POST
 exports.accessory_delete_post = (req, res, next) => {
-  Accessory.findById(req.params.id).exec((err, accessory) => {
+  Accessory.findById(req.body.accessoryid).exec((err, accessory) => {
     if (err) {
       return next(err);
     }
