@@ -38,7 +38,7 @@ Programming focus:
 
 ### Screenshot
 
-![](./public/screenshot.png)
+![](./public/images/screenshot.png)
 
 ### Links
 
