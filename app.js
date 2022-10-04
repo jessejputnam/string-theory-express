@@ -1,5 +1,5 @@
 // dotenv access during development
-require("dotenv").config();
+// require("dotenv").config();
 
 // Express dependencies
 const createError = require("http-errors");
