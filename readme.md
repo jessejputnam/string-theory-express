@@ -50,7 +50,7 @@ Programming focus:
 
 - Flexbox
 - Mobile-first workflow
-- [React](https://reactjs.org/) - Frontend scripting language
+- [JavaScript](https://www.javascript.com/) - Frontend scripting language
 - [Node.js](https://nodejs.dev/en/) - Backend JavaScript runtime environment
 - [Express](https://expressjs.com/) - Web framework for Node.js
 - [MongoDB](https://www.mongodb.com/) - NoSQL cloud database

@@ -25,8 +25,6 @@ burger.addEventListener("click", (e) => {
     burgerBottom.classList.remove("burger-bottom-open");
 
     mobileMenu.classList.remove("mobile-header-open");
-    // mobileMenu.classList.add("hidden");
-    mobile;
   } else {
     clicked.classList.add("open");
     burgerTop.classList.add("burger-top-open");
@@ -34,7 +32,6 @@ burger.addEventListener("click", (e) => {
     burgerBottom.classList.add("burger-bottom-open");
 
     mobileMenu.classList.add("mobile-header-open");
-    // mobileMenu.classList.remove("hidden");
   }
 });
 
