@@ -42,7 +42,7 @@ Programming focus:
 
 ### Links
 
-- Live Site URL: [String Theory Express](https://stringtheoryexpresstest.herokuapp.com/)
+- Live Site URL: [String Theory Express](https://string-theory-express.onrender.com/)
 
 ## My process
 
